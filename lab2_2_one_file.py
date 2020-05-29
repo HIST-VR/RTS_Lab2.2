@@ -2,6 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import random as rnd
+from time import perf_counter
 
 def generate_signal(n:int, Wmax:float, N:int, step:float = 1.0):
     Wmax2 = Wmax*2*np.pi #циклічна частота
@@ -53,7 +54,9 @@ if __name__=="__main__":
     T = t[N - 1]  # період часу
 
     signalComplex = np.array(signal1, dtype=np.complex)
+    fft_time = perf_counter()
     fast_fourier_transform(signalComplex)
+    print("Час роботи fft" , str(perf_counter()- fft_time))
     amplitudeSpectrum = np.abs(signalComplex[:N_2])
 
     freq = np.linspace(1 / T, 0.5 / step, amplitudeSpectrum.size)
